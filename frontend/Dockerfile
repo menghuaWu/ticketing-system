@@ -17,16 +17,20 @@ COPY . .
 RUN npm run build
 
 # 使用較小的 Nginx 映像來部署靜態檔案
-FROM nginx:alpine
+FROM node:18 AS alpine
 
 # 設定工作目錄
 WORKDIR /app
 
 # 複製建置後的檔案到 Nginx 的公開資料夾
-COPY --from=build /app/.output/public /usr/share/nginx/html
+COPY --from=build /app /app
 
-# 開放 80 埠
-EXPOSE 80
+# 安裝生產環境依賴
+RUN npm install --only=production
 
-# 啟動 Nginx 服務
-CMD ["nginx", "-g", "daemon off;"]
+# 開放 3000 埠
+EXPOSE 3000
+
+
+# 啟動 Nuxt SSR 伺服器
+CMD ["node", ".output/server/index.mjs"]

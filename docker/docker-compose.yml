@@ -4,7 +4,7 @@ services:
       context: ../frontend  # 指向 frontend 資料夾
     container_name: nuxt-app
     ports:
-      - "80:80"
+      - "3000:3000"  # 修改端口映射為 3000:3000
     environment:
       - NODE_ENV=production
     working_dir: /app  # 設定工作目錄為 /app
@@ -61,7 +61,7 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
