@@ -26,11 +26,11 @@ WORKDIR /app
 COPY --from=build /app /app
 
 # 安裝生產環境依賴
-RUN npm install --only=production
+RUN npm install
 
 # 開放 3000 埠
 EXPOSE 3000
 
 
 # 啟動 Nuxt SSR 伺服器
-CMD ["node", ".output/server/index.mjs"]
+CMD [ "node", ".output/server/index.mjs" ]

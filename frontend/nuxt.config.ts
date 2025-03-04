@@ -17,12 +17,8 @@ export default defineNuxtConfig({
     },
   },
   nitro: {
-    preset: 'node', // 使用 Node.js 預設模式
-    output: {
-      dir: '.output'
-    },
-    serveStatic: true, // 確保靜態文件能正確載入
-    logLevel: 3, // 設置日誌級別，方便偵錯
+    preset: 'node-server', // 使用 Node.js 預設模式
+    serveStatic: true // 確保靜態文件能正確載入
   },
   vite: {
     build: {
