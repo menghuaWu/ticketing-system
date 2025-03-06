@@ -1,3 +1,7 @@
+using Ticketing.QueryAPI.Data;
+using Ticketing.QueryAPI.KafkaConsumers;
+using Ticketing.QueryAPI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.ConfigureKestrel(options =>
@@ -14,6 +18,8 @@ builder.Services.AddCors(options =>
 });
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
 builder.Services.AddSingleton<TicketService>();
+builder.Services.AddHostedService<TicketConsumer>();
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
