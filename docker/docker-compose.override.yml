@@ -1,0 +1,17 @@
+services:
+  commandapi:
+    build: 
+      context: ../backend\Ticketing.CommandAPI
+    container_name: commandapi
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mssql
+      - kafka
+      - mongodb
+      - redis
+    environment:
+      - ConnectionStrings__MSSQL=Server=ubuntu-sqlserver,1433;Database=TicketDB;User Id=sa;Password=@Ff04291001;TrustServerCertificate=True
+      - Kafka__BootstrapServers=kafka:9092
+    networks:
+      - dockernet
