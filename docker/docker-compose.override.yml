@@ -15,3 +15,16 @@ services:
       - Kafka__BootstrapServers=kafka:9092
     networks:
       - dockernet
+
+  queryapi:
+    build: ../backend/Ticketing.QueryAPI
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mssql
+      - kafka
+      - mongodb
+      - redis
+    environment:
+      - MongoDbSettings__ConnectionString=mongodb://mongodb:27017
+      - Kafka__BootstrapServers=kafka:9092
