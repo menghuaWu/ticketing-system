@@ -1,7 +1,7 @@
 services:
   commandapi:
     build: 
-      context: ../backend\Ticketing.CommandAPI
+      context: ../backend/Ticketing.CommandAPI
     container_name: commandapi
     ports:
       - "5000:5000"
@@ -10,6 +10,7 @@ services:
       - kafka
       - mongodb
       - redis
+    restart: always
     environment:
       - ConnectionStrings__MSSQL=Server=ubuntu-sqlserver,1433;Database=TicketDB;User Id=sa;Password=@Ff04291001;TrustServerCertificate=True
       - Kafka__BootstrapServers=kafka:9092
@@ -17,9 +18,12 @@ services:
       - dockernet
 
   queryapi:
-    build: ../backend/Ticketing.QueryAPI
+    build: 
+      context: ../backend/Ticketing.QueryAPI
+    container_name: queryapi
     ports:
       - "5001:5001"
+    restart: always
     depends_on:
       - mssql
       - kafka
@@ -28,3 +32,5 @@ services:
     environment:
       - MongoDbSettings__ConnectionString=mongodb://mongodb:27017
       - Kafka__BootstrapServers=kafka:9092
+    networks:
+      - dockernet

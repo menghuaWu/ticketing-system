@@ -20,7 +20,7 @@ namespace Ticketing.QueryAPI.Services
             await _ticketCollection.Find(_ => true).ToListAsync();
 
         public async Task<Ticket?> GetByIdAsync(string id) =>
-            await _ticketCollection.Find(t => t.Id == id).FirstOrDefaultAsync();
+            await _ticketCollection.Find(t => t.Id.ToString() == id).FirstOrDefaultAsync();
 
         public async Task CreateAsync(Ticket ticket) =>
             await _ticketCollection.InsertOneAsync(ticket);
