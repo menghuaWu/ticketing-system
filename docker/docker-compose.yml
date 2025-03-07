@@ -29,6 +29,10 @@ services:
     ports:
       - "27017:27017"
     restart: always
+    environment:
+      MongoDbSettings__ConnectionString : mongodb://mongodb:27017
+      MongoDbSettings__DatabaseName : TicketDB
+      MongoDbSettings__CollectionName : Tickets
     networks:
       - dockernet
 

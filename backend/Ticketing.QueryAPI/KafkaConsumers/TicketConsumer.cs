@@ -27,8 +27,17 @@ namespace Ticketing.QueryAPI.KafkaConsumers
                 };
                 Console.WriteLine($"Kafka設定: {JsonConvert.SerializeObject(consumerConfig)}");
                 _consumer = new ConsumerBuilder<Null, string>(consumerConfig).Build();
-                _consumer.Subscribe(_config["Kafka:Topic"]);
-                Console.WriteLine($"Kafka初始化");
+                try
+                {
+                    _consumer.Subscribe(_config["Kafka:Topic"]);
+                    Console.WriteLine($"Kafka初始化");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"等待 Kafka 準備好，錯誤: {e.Message}");
+                    Thread.Sleep(5000);  // 等待 5 秒再重試
+                }
+                
             }
             catch (Exception ex)
             {
