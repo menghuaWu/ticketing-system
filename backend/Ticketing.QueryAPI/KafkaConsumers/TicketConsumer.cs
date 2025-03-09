@@ -1,4 +1,5 @@
 ﻿using Confluent.Kafka;
+using MongoDB.Bson;
 using Newtonsoft.Json;
 using Ticketing.QueryAPI.Models;
 using Ticketing.QueryAPI.Services;
@@ -60,10 +61,25 @@ namespace Ticketing.QueryAPI.KafkaConsumers
                         var consumeResult = _consumer.Consume(stoppingToken);
                         var ticketJson = consumeResult.Message.Value;
                         Console.WriteLine($"接收到消息: {ticketJson}");
-                        var ticket = JsonConvert.DeserializeObject<Ticket>(ticketJson);
-                        _logger.LogInformation($"Received message: {ticket}");
-                        if (ticket != null)
+                        var ticketDTO = JsonConvert.DeserializeObject<TicketDTO>(ticketJson);
+                        _logger.LogInformation($"Received message: {ticketDTO}");
+                        if (ticketDTO != null)
                         {
+                            var ticket = new Ticket
+                            {
+                                Id = ObjectId.Parse(ticketDTO.Id),
+                                Title = ticketDTO.Title,
+                                Price = ticketDTO.Price
+                            };
+                            if (ObjectId.TryParse(ticket.Id.ToString(), out var objectId))
+                            {
+                                ticket.Id = objectId;  // 保持原來的 ObjectId
+                            }
+                            else
+                            {
+                                // 如果不是有效的 ObjectId，可以選擇用其他方法處理（如生成新的 ObjectId 或處理錯誤）
+                                ticket.Id = new ObjectId(); // 或者選擇自動生成一個新的 ObjectId
+                            }
                             await _ticketService.CreateAsync(ticket);
                         }
                     }

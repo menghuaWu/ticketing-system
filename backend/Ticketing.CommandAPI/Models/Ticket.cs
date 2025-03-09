@@ -3,6 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ticketing.CommandAPI.Models
 {
+    public class TicketDTO
+    {
+        public string Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Price { get; set; }
+    }
     public class Ticket
     {
         [Key]

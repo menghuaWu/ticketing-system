@@ -59,6 +59,8 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
     container_name: kafka
     restart: always
     ports:
@@ -67,13 +69,29 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"  # 這裡啟用自動創建 Topic
-    depends_on:
-      - zookeeper
+    healthcheck:
+      test: ["CMD", "kafka-topics", "--list", "--bootstrap-server", "kafka:9092"]
+      interval: 10s
+      retries: 5
+      start_period: 20s
+      timeout: 5s
     networks:
       - dockernet
-
+  kafka-init:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka-init
+    depends_on:
+      kafka:
+        condition: service_healthy
+    command: [ "sh", "-c", "sh /kafka-init.sh" ]
+    volumes:
+      - ./kafka-init.sh:/kafka-init.sh
+    networks:
+      - dockernet
 volumes:
   mssql_data:
   mongo_data:

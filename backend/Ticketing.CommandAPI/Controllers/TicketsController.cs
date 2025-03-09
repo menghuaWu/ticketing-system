@@ -27,9 +27,10 @@ namespace Ticketing.CommandAPI.Controllers
             await _context.SaveChangesAsync();
 
             // 發送事件到 Kafka
+            var ticketDTO = new TicketDTO { Id = ticket.Id.ToString(), Title = ticket.Title, Price = ticket.Price.ToString() };
             var kafkaConfig = new ProducerConfig { BootstrapServers = _config["Kafka:BootstrapServers"] };
             using var producer = new ProducerBuilder<Null, string>(kafkaConfig).Build();
-            var ticketEvent = JsonSerializer.Serialize(ticket);
+            var ticketEvent = JsonSerializer.Serialize(ticketDTO);
             await producer.ProduceAsync(_config["Kafka:Topic"], new Message<Null, string> { Value = ticketEvent });
 
             return CreatedAtAction(nameof(GetTicket), new { id = ticket.Id }, ticket);
