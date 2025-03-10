@@ -5,7 +5,7 @@ namespace Ticketing.QueryAPI.Models
 {
     public class TicketDTO
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [BsonElement("title")]
         public string Title { get; set; } = string.Empty;
@@ -17,7 +17,9 @@ namespace Ticketing.QueryAPI.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId Id { get; set; }
+        public string Id { get; set; }
+
+        public int MssqlId { get; set; }  // MSSQL 產生的 ID
 
         [BsonElement("title")]
         public string Title { get; set; } = string.Empty;
