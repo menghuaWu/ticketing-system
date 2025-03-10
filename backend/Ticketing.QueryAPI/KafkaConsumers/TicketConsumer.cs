@@ -1,4 +1,5 @@
-﻿using Confluent.Kafka;
+﻿using AutoMapper;
+using Confluent.Kafka;
 using MongoDB.Bson;
 using Newtonsoft.Json;
 using Ticketing.QueryAPI.Models;
@@ -12,8 +13,9 @@ namespace Ticketing.QueryAPI.KafkaConsumers
         private readonly IConfiguration _config;
         private readonly IConsumer<Null, string> _consumer;
         private readonly ILogger<TicketConsumer> _logger;
+        private readonly IMapper _mapper;
 
-        public TicketConsumer(ILogger<TicketConsumer> logger, TicketService ticketService, IConfiguration config)
+        public TicketConsumer(ILogger<TicketConsumer> logger, TicketService ticketService, IConfiguration config, IMapper mapper)
         {
             _logger = logger;
             _ticketService = ticketService;
@@ -45,6 +47,7 @@ namespace Ticketing.QueryAPI.KafkaConsumers
                 Console.WriteLine($"kafka初始化錯誤: {ex.Message}");
                 _logger.LogError(ex, "Failed to connect to Kafka.");
             }
+            _mapper = mapper;
             
         }
 
@@ -67,12 +70,13 @@ namespace Ticketing.QueryAPI.KafkaConsumers
                         if (ticketDTO != null)
                         {
                             // DTO資料映射至mongoDB
-                            var ticket = new Ticket
-                            {
-                                MssqlId = ticketDTO.Id, // 儲存MSSQL產出的ID
-                                Title = ticketDTO.Title,
-                                Price = ticketDTO.Price
-                            };
+                            //var ticket = new Ticket
+                            //{
+                            //    MssqlId = ticketDTO.Id, // 儲存MSSQL產出的ID
+                            //    Title = ticketDTO.Title,
+                            //    Price = ticketDTO.Price
+                            //};
+                            var ticket = _mapper.Map<Ticket>(ticketDTO);
                             await _ticketService.CreateAsync(ticket);
                         }
                     }
