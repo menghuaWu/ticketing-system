@@ -2,7 +2,7 @@
 import { defineNuxtConfig } from 'nuxt/config';
 
 export default defineNuxtConfig({
-  modules: ['@nuxt/http', '@pinia/nuxt'],
+  modules: ['@pinia/nuxt'],
   runtimeConfig: {
     public: {
       apiBase: 'http://localhost:8080' // API Gateway

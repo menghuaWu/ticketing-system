@@ -10,7 +10,6 @@
     "start": "nuxt start"
   },
   "dependencies": {
-    "@nuxt/http": "^0.6.4",
     "@pinia/nuxt": "^0.10.1",
     "nuxt": "^3.6.0",
     "vue": "latest",
