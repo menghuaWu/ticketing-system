@@ -2,6 +2,12 @@
 import { defineNuxtConfig } from 'nuxt/config';
 
 export default defineNuxtConfig({
+  modules: ['@nuxt/http', '@pinia/nuxt'],
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://localhost:8080' // API Gateway
+    }
+  },
   devtools: { enabled: true },
   ssr: true, // 確保啟用 SSR
   css: [
