@@ -1,4 +1,17 @@
 services:
+  gateway:
+    build:
+      context: ../backend/GatewayAPI
+    container_name: gatewayapi
+    ports:
+      - "8080:8080"
+    depends_on:
+      - queryapi
+      - commandapi
+    restart: always
+    networks:
+      - dockernet
+
   commandapi:
     build: 
       context: ../backend/Ticketing.CommandAPI
