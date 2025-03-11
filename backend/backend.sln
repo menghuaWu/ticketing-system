@@ -2,9 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.CommandAPI", "Ticketing.CommandAPI\Ticketing.CommandAPI.csproj", "{D1D3F367-CEC1-5D2D-CDC0-C8047D000E60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ticketing.CommandAPI", "Ticketing.CommandAPI\Ticketing.CommandAPI.csproj", "{D1D3F367-CEC1-5D2D-CDC0-C8047D000E60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.QueryAPI", "Ticketing.QueryAPI\Ticketing.QueryAPI.csproj", "{A8ED2907-9298-E09D-29EC-BF24736EDA9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ticketing.QueryAPI", "Ticketing.QueryAPI\Ticketing.QueryAPI.csproj", "{A8ED2907-9298-E09D-29EC-BF24736EDA9D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayAPI", "GatewayAPI\GatewayAPI.csproj", "{C4FB3B24-87E1-4875-A103-C4F1BDC46060}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{A8ED2907-9298-E09D-29EC-BF24736EDA9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8ED2907-9298-E09D-29EC-BF24736EDA9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8ED2907-9298-E09D-29EC-BF24736EDA9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4FB3B24-87E1-4875-A103-C4F1BDC46060}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4FB3B24-87E1-4875-A103-C4F1BDC46060}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4FB3B24-87E1-4875-A103-C4F1BDC46060}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4FB3B24-87E1-4875-A103-C4F1BDC46060}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
