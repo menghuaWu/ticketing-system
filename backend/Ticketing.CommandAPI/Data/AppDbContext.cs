@@ -8,5 +8,6 @@ namespace Ticketing.CommandAPI.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public DbSet<Ticket> Tickets => Set<Ticket>();
+        public DbSet<Order> Orders => Set<Order>();
     }
 }
