@@ -13,7 +13,7 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/api/tickets",
+      "DownstreamPathTemplate": "/api/order",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {

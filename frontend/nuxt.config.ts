@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   modules: ['@pinia/nuxt'],
   runtimeConfig: {
     public: {
-      apiBase: 'http://localhost:8080' // API Gateway
+      apiBase: process.env.API_BASE || 'http://localhost:8080/api' // API Gateway
     }
   },
   devtools: { enabled: true },

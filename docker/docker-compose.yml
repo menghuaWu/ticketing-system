@@ -1,15 +1,16 @@
 services:
   frontend:
     build: 
-      context: ../frontend  # 指向 frontend 資料夾
+      context: ../frontend 
     container_name: nuxt-app
     ports:
-      - "3000:3000"  # 修改端口映射為 3000:3000
+      - "3000:3000" 
     environment:
       - NODE_ENV=production
-    working_dir: /app  # 設定工作目錄為 /app
+      - API_BASE=http://gatewayapi:8080/api
+    working_dir: /app 
     networks:
-      - dockernet  # 設定網路，若需要與其他服務溝通（例如 backend）
+      - dockernet
 
   mssql:
     image: mcr.microsoft.com/mssql/server:latest

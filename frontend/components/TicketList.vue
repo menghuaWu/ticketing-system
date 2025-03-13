@@ -1,9 +1,15 @@
-<script>
-// const {data: tickets, pending, error} = useTickets()
+<script setup>
+import { computed } from 'vue';
+import { useTickets } from '~/composables/useTickets';
+import { useOrders } from '~/composables/useOrders';
+
+const {data, pending, error} = useTickets()
+const tickets = computed(() => data?.value || []);
+
 const{createOrder} = useOrders();
 
-const orderTicket = async (title, price) => {
-    const response = await createOrder({title, price});
+const orderTicket = async (ticketId) => {
+    const response = await createOrder({ ticketId, userId: 999 });
     if (response) {
       alert('Order created!');
     } else {
@@ -13,20 +19,13 @@ const orderTicket = async (title, price) => {
 </script>
 
 <template>
-    <!-- <div v-if="pending">Loading tickets...</div>
+    <div v-if="pending">Loading tickets...</div>
     <div v-else-if="error">Failed to load tickets</div>
     <div v-else>
         <ul>
             <li v-for="ticket in tickets" :key="ticket.id">
                 {{ ticket.title }} - {{ ticket.price }}$
-            </li>
-        </ul>
-    </div> -->
-    <div>
-        <ul>
-            <li v-for="(index) in 8" :key="index">
-                基本通關{{index}} - 250$
-                <button @click="orderTicket('基本通關{{index}}',250)">Order</button>
+                <button class="btn btn-primary" @click="orderTicket(ticket.id)">Order</button>
             </li>
         </ul>
     </div>
