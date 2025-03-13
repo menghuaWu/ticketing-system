@@ -20,7 +20,9 @@ builder.Services.AddCors(options =>
 });
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
 builder.Services.AddSingleton<TicketService>();
+builder.Services.AddSingleton<OrderService>();
 builder.Services.AddHostedService<TicketConsumer>();
+builder.Services.AddHostedService<OrderConsumer>();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
