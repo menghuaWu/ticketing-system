@@ -1,6 +1,9 @@
 <script setup>
-const {data, pending, error} = useTickets()
+const {data, pending, error,refresh} = useTickets()
 const tickets = computed(() => data?.value || []);
+onMounted(() => {
+    console.log("🔄 網頁重新整理後，強制刷新 tickets : ", tickets);
+});
 
 const{createOrder} = useOrders();
 
